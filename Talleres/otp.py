@@ -1,21 +1,20 @@
+"""
+Author: jpastor
+Date: 2025-09-06
+One-Time Pad (OTP) Encryption and Decryption Example
+"""
+
 import secrets
 import string
 
 
 def generateRandomKey(length):
-    if not isinstance(length, int):
-        raise TypeError("Length must be an integer")
-    if length <= 0:
-        raise ValueError("Length must be positive")
-
-    # Use printable ASCII characters for the key
     alphabet = string.ascii_letters + string.digits + string.punctuation + " "
     return "".join(secrets.choice(alphabet) for _ in range(length))
 
 
 def otpEncrypt(txt, key):
 
-    # Input validation
     if not isinstance(txt, str):
         raise TypeError("Text must be a string")
     if not isinstance(key, str):
@@ -33,8 +32,7 @@ def otpEncrypt(txt, key):
 
 
 def otpDecrypt(ciphertxt, key):
-    
-    # Input validation
+
     if not isinstance(ciphertxt, bytes):
         raise TypeError("Ciphertext must be bytes, not string")
     if not isinstance(key, str):
@@ -51,32 +49,34 @@ def otpDecrypt(ciphertxt, key):
 
 
 if __name__ == "__main__":
-    # Example usage with proper OTP implementation
-    # plaintext = "Hello, World! This is a secret message."
     plaintext = input("Enter the plaintext message: ")
 
-    # Generate a random key of the same length as the plaintext
-    key = generateRandomKey(len(plaintext))
-
     print("=== One-Time Pad Encryption Example ===")
+
     print(f"Plaintext: {plaintext}")
+    choice = input("Do you want to provide your own key? (y/n): ").strip().lower()
+    txt_bytes = plaintext.encode("utf-8")  
+    if choice == "y":
+        user_key = input("Enter your key: ")
+        if len(user_key.encode("utf-8")) != len(txt_bytes):  
+            print("Error: Key length must match plaintext length (in bytes).")
+            exit(1)
+        key = user_key
+    else:
+        key = generateRandomKey(len(txt_bytes))  
     print(f"Key: {key}")
-    print(f"Key length: {len(key)}")
+    print(f"Key length (chars): {len(key)}")
+    print(f"plaintext length (bytes): {len(txt_bytes)}")
     print()
 
     try:
-        # Encrypt the plaintext
         ciphertext = otpEncrypt(plaintext, key)
-        print(f"Ciphertext (bytes): {ciphertext}")
+        print(f"Ciphertext (represented in hex): {ciphertext.hex()}")
         print()
 
-        # Decrypt the ciphertext
         decrypted = otpDecrypt(ciphertext, key)
         print(f"Decrypted: {decrypted}")
         print(f"Decryption successful: {plaintext == decrypted}")
 
     except (TypeError, ValueError) as e:
         print(f"Error: {e}")
-
-
-
