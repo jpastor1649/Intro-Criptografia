@@ -1,3 +1,8 @@
+"""
+Author: jpastor
+Date: 2025-09-06
+Playfair Cipher Encryption and Decryption Example"""
+
 import string
 
 
