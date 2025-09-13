@@ -6,22 +6,22 @@ Caesar's Cipher Encryption and Decryption Example
 
 
 def caesar_encrypt(text, shifts):
-    text_cipher = ""
+    ciphertext = ""
     for char in text:
         if char.isalpha():
             # Determine if character is uppercase or lowercase
             base = ord("A") if char.isupper() else ord("a")
             # Shift character and wrap around the alphabet
-            text_cipher += chr((ord(char) - base + shifts) % 26 + base)
+            ciphertext += chr((ord(char) - base + shifts) % 26 + base)
         else:
             # Non-alphabetic characters are added unchanged
-            text_cipher += char
-    return text_cipher
+            ciphertext += char
+    return ciphertext
 
 
-def caesar_decrypt(text_cipher, shifts):
+def caesar_decrypt(ciphertext, shifts):
     # Decrypting is just encrypting with the negative shift
-    return caesar_encrypt(text_cipher, -shifts)
+    return caesar_encrypt(ciphertext, -shifts)
 
 
 if __name__ == "__main__":
