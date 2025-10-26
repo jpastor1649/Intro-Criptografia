@@ -3,6 +3,7 @@ from pyDes import des, CBC, PAD_PKCS5
 
 
 def image_cipher_des(path: str):
+
     print("=== DES image encryption ===")
 
     # 1️ Read the image in binary mode
@@ -45,14 +46,7 @@ def image_cipher_des(path: str):
 
 
 def image_decipher_des(data_base64: str, key: str, output_path: str = "deciphered_image.png"):
-    """
-    Decrypt an image encrypted with DES and encoded in Base64.
 
-    Parameters:
-        data_base64 (str): Ciphertext in Base64.
-        key (str): 8-character key used for encryption.
-        output_path (str): Output filename for the decrypted image.
-    """
     if len(key) != 8:
         raise ValueError("The key must be exactly 8 characters (8 bytes).")
 
