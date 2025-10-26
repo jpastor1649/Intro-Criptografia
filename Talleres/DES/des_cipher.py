@@ -76,7 +76,7 @@ def main():
     if option == '1':
         # Encrypt image
         data_base64, encrypted_path = image_cipher_des(
-            r"C:\Users\johna\OneDrive\Desktop\2025-II\Criptografia\Talleres\DES\prueba DES.png"
+            input("Enter the path to the image file to encrypt: ")
         )
 
         # Save Base64 to a text file for later use
@@ -90,7 +90,7 @@ def main():
         key = input("Enter the 8-character key used for encryption: ")
 
         # Read Base64 text from file
-        with open("cipher_base64.txt", "r") as f:
+        with open(input("Enter the path to the Base64 file: "), "r") as f:
             data_base64 = f.read()
 
         image_decipher_des(data_base64=data_base64, key=key)
